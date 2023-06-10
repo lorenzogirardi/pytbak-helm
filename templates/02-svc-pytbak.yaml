@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "pytbak-helm.fullname" . }}-pytbak-svc
+  labels:
+    app: pytbak
+  {{- include "pytbak-helm.labels" . | nindent 4 }}
+spec:
+  type: {{ .Values.pytbakSvc.type }}
+  selector:
+    app: pytbak
+  {{- include "pytbak-helm.selectorLabels" . | nindent 4 }}
+  ports:
+	{{- .Values.pytbakSvc.ports | toYaml | nindent 2 -}}

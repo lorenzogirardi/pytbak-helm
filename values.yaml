@@ -1,0 +1,20 @@
+kubernetesClusterDomain: cluster.local
+pytbakStable:
+  pytbak:
+    image:
+      repository: lgirardi/rest-test-multip
+      tag: 0.9.1
+    resources:
+      limits:
+        cpu: 300m
+        memory: 250Mi
+      requests:
+        cpu: 30m
+        memory: 125Mi
+  replicas: 1
+pytbakSvc:
+  ports:
+  - port: 5000
+    protocol: TCP
+    targetPort: 0
+  type: ClusterIP

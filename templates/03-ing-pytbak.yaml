@@ -1,0 +1,22 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: {{ include "pytbak-helm.fullname" . }}-pytbak-ingress
+  labels:
+  {{- include "pytbak-helm.labels" . | nindent 4 }}
+  annotations:
+    ingress.kubernetes.io/proxy-connect-timeout: "10"
+    ingress.kubernetes.io/proxy-read-timeout: "30"
+    ingress.kubernetes.io/proxy-send-timeout: "30"
+spec:
+  rules:
+  - host: pytbak.127.0.0.1.nip.io
+    http:
+      paths:
+      - backend:
+          service:
+            name: '{{ include "pytbak-helm.fullname" . }}-pytbak-svc'
+            port:
+              number: 5000
+        path: /api/
+        pathType: Prefix

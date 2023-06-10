@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: LimitRange
+metadata:
+  name: {{ include "pytbak-helm.fullname" . }}-limit
+  labels:
+  {{- include "pytbak-helm.labels" . | nindent 4 }}
+spec:
+  limits:
+  - default:
+      cpu: 350m
+      memory: 300Mi
+    defaultRequest:
+      cpu: 50m
+      memory: 150Mi
+    type: Container
